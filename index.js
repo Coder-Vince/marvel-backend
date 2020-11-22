@@ -80,7 +80,20 @@ app.get("/comics", async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
+// LOCAL RUN
+// app.listen(process.env.PORT, () => {
+//   console.log(`Server Started on port ${process.env.PORT}`);
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server Started on port ${process.env.PORT}`);
+// Heroku va nous fournir une variable process.env.PORT
+if (process.env.PORT) {
+  app.listen(process.env.PORT, () => {
+    console.log("Server started");
+  });
+} else {
+  app.listen(3200, () => {
+    console.log("Server started");
+  });
+}
+app.listen(process.env.PORT || 3200, () => {
+  console.log("Server started");
 });
